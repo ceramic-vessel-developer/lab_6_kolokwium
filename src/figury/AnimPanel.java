@@ -6,15 +6,19 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class AnimPanel extends JPanel implements ActionListener {
+public class AnimPanel extends JPanel implements ActionListener{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int[] corner_temp_1;
+	private int[] corner_temp_2;
 
 	// bufor
 	Image image;
@@ -47,8 +51,13 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig =new Rectangle(buffer, delay, getWidth(), getHeight(), 0, 0,20,40);
+		timer.addActionListener(fig);
+		new Thread(fig).start();
+	}
+
+	public void addFigure(){
+		Figura fig =new Rectangle(buffer, delay, getWidth(), getHeight(), corner_temp_1[0], corner_temp_1[1],Math.abs(corner_temp_1[1]-corner_temp_2[1]),Math.abs(corner_temp_1[0]-corner_temp_2[0]));
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
@@ -65,5 +74,21 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
+	}
+
+	public int[] getCorner_temp_1() {
+		return corner_temp_1;
+	}
+
+	public void setCorner_temp_1(int[] corner_temp_1) {
+		this.corner_temp_1 = corner_temp_1;
+	}
+
+	public int[] getCorner_temp_2() {
+		return corner_temp_2;
+	}
+
+	public void setCorner_temp_2(int[] corner_temp_2) {
+		this.corner_temp_2 = corner_temp_2;
 	}
 }
