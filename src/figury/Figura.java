@@ -47,15 +47,11 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 
 		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
-		// reszta musi być zawarta w realizacji klasy Figure
-		// (tworzenie figury i przygotowanie transformacji)
 
 	}
 
 	@Override
 	public void run() {
-		// przesuniecie na srodek
-
 		while (true) {
 			// przygotowanie nastepnego kadru
 			shape = nextFrame();
@@ -67,16 +63,15 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	}
 
 	protected Shape nextFrame() {
-		// zapamietanie na zmiennej tymczasowej
-		// aby nie przeszkadzalo w wykreslaniu
 		area = new Area(area);
 		aft = new AffineTransform();
 		Rectangle bounds = area.getBounds();
 		int cx = bounds.x + bounds.width;
 		int cy = bounds.y + bounds.height;
+		// update grawitacji
 		dx = AnimPanel.gx;
 		dy = AnimPanel.gy;
-		// odbicie
+		// zatrzymanie
 		if (cx+dx -bounds.width< 0 || cx+dx > width)
 			dx = 0;
 		if (cy+dy - bounds.height< 0 || cy+dy > height)
