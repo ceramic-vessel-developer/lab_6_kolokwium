@@ -29,10 +29,6 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	// przesuniecie
 	private int dx, dy;
-	// rozciaganie
-	private double sf;
-	// kat obrotu
-	private double an;
 	private int delay;
 	private int width;
 	private int height;
@@ -46,10 +42,9 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		width = w;
 		height = h;
 
-		dx = 1 + rand.nextInt(5);
-		dy = 1 + rand.nextInt(5);
-		sf = 1 + 0.05 * rand.nextDouble();
-		an = 0.1 * rand.nextDouble();
+		dx = AnimPanel.gx;
+		dy = AnimPanel.gy;
+
 
 		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 		// reszta musi być zawarta w realizacji klasy Figure
@@ -60,9 +55,6 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	@Override
 	public void run() {
 		// przesuniecie na srodek
-		aft.translate(100, 100);
-		area.transform(aft);
-		shape = area;
 
 		while (true) {
 			// przygotowanie nastepnego kadru
@@ -80,20 +72,18 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		area = new Area(area);
 		aft = new AffineTransform();
 		Rectangle bounds = area.getBounds();
-		int cx = bounds.x + bounds.width / 2;
-		int cy = bounds.y + bounds.height / 2;
+		int cx = bounds.x + bounds.width;
+		int cy = bounds.y + bounds.height;
+		dx = AnimPanel.gx;
+		dy = AnimPanel.gy;
 		// odbicie
-		if (cx < 0 || cx > width)
-			dx = -dx;
-		if (cy < 0 || cy > height)
-			dy = -dy;
-		// zwiekszenie lub zmniejszenie
-		if (bounds.height > height / 3 || bounds.height < 10)
-			sf = 1 / sf;
+		if (cx+dx -bounds.width< 0 || cx+dx > width)
+			dx = 0;
+		if (cy+dy - bounds.height< 0 || cy+dy > height)
+			dy = 0;
+
 		// konstrukcja przeksztalcenia
 		aft.translate(cx, cy);
-		aft.scale(sf, sf);
-		aft.rotate(an);
 		aft.translate(-cx, -cy);
 		aft.translate(dx, dy);
 		// przeksztalcenie obiektu

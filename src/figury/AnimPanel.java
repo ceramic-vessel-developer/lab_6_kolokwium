@@ -20,6 +20,9 @@ public class AnimPanel extends JPanel implements ActionListener{
 	private int[] corner_temp_1;
 	private int[] corner_temp_2;
 
+	static int gx = 0;
+	static int gy = 1;
+
 	// bufor
 	Image image;
 	// wykreslacz ekranowy
@@ -50,12 +53,6 @@ public class AnimPanel extends JPanel implements ActionListener{
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig =new Rectangle(buffer, delay, getWidth(), getHeight(), 0, 0,20,40);
-		timer.addActionListener(fig);
-		new Thread(fig).start();
-	}
-
 	public void addFigure(){
 		Figura fig =new Rectangle(buffer, delay, getWidth(), getHeight(), corner_temp_1[0], corner_temp_1[1],Math.abs(corner_temp_1[1]-corner_temp_2[1]),Math.abs(corner_temp_1[0]-corner_temp_2[0]));
 		timer.addActionListener(fig);
@@ -84,11 +81,25 @@ public class AnimPanel extends JPanel implements ActionListener{
 		this.corner_temp_1 = corner_temp_1;
 	}
 
-	public int[] getCorner_temp_2() {
-		return corner_temp_2;
-	}
-
 	public void setCorner_temp_2(int[] corner_temp_2) {
 		this.corner_temp_2 = corner_temp_2;
+	}
+
+	public void set_gravity(Gravity g){
+		if(g == Gravity.UP){
+			gx = 0;
+			gy = -2;
+		}else if (g == Gravity.DOWN){
+			gx = 0;
+			gy = 2;
+
+		}else if (g == Gravity.RIGHT){
+			gx = 2;
+			gy = 0;
+
+		}else if (g == Gravity.LEFT){
+			gx = -2;
+			gy = 0;
+		}
 	}
 }

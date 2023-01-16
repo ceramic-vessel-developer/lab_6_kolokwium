@@ -3,10 +3,7 @@ package figury;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -64,8 +61,6 @@ public class AnimatorApp extends JFrame {
 					kanwa.setCorner_temp_1(null);
 					kanwa.setCorner_temp_2(null);
 				}
-				System.out.println(kanwa.getCorner_temp_1());
-				System.out.println(kanwa.getCorner_temp_2());
 			}
 
 			@Override
@@ -97,24 +92,62 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
-			}
-		});
-		btnAdd.setBounds(10, 739, 80, 23);
-		contentPane.add(btnAdd);
-		
+
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 739, 80, 23);
+		btnAnimate.setBounds(10, 700, 90, 23);
 		contentPane.add(btnAnimate);
-		
+
+		JButton btnUp = new JButton("Up");
+		btnUp.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kanwa.set_gravity(Gravity.UP);
+			}
+		});
+		btnUp.setBounds(200, 700, 80, 23);
+		contentPane.add(btnUp);
+
+		JButton btnDown = new JButton("Down");
+		btnDown.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kanwa.set_gravity(Gravity.DOWN);
+			}
+		});
+		btnDown.setBounds(290, 700, 80, 23);
+		contentPane.add(btnDown);
+
+		JButton btnRight = new JButton("Right");
+		btnRight.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kanwa.set_gravity(Gravity.RIGHT);
+			}
+		});
+		btnRight.setBounds(380, 700, 80, 23);
+		contentPane.add(btnRight);
+
+		JButton btnLeft = new JButton("Left");
+		btnLeft.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kanwa.set_gravity(Gravity.LEFT);
+			}
+		});
+		btnLeft.setBounds(470, 700, 80, 23);
+		contentPane.add(btnLeft);
+
+		JLabel label = new JLabel("Select gravity:");
+		label.setLabelFor(btnUp);
+		label.setBounds(110,700,100,23);
+		contentPane.add(label);
+
+
 	}
 
 }
